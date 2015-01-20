@@ -1,0 +1,21 @@
+application: predictive-fx-831 
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /bootstrap/*
+  static_dir: bootstrap
+  
+- url: /.*
+  script: winebook.application
+  
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest
