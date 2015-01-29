@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+
+    <!-- Bootstrap core CSS -->
+  <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+  <body>
+    <div class='form-input'>
+      <div class='container'>
+        <ul>
+          <li><a href="#enroll_bottle">Enroll Bottle</a></li>
+          <li><a href="/connect">Sign Up</a></li>
+          <li><a href="#">Log In</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <div class='bottle-list'>
+      <div class='container'>
+        {% if bottles %}
+          {% for bottle in bottles %}
+        <li><a href='/bottle/{{bottle.name}}'> {{bottle.name}}</a></li>
+        <div class='bottle-info'>
+          <div class='container'>
+            <li>{{bottle.vintage}}</li>
+            <li>{{bottle.producer}}</li>
+            <li>{{bottle.name}}</li>
+            <li>{{bottle.fingerprint}}</li>
+          </div>
+        </div>
+          {%- endfor %}
+        {%else%}
+          <br>No Bottles found
+        {%endif%}
+      </div>
+    </div>
+    <H1>Enroll Bottle</H1>
+      <div class='container'>
+        <div class='bottle-form'>
+          <H2>Bottle Details</H2>
+          <div class='row'>
+            <div class='col-md-2'>Vintage</div>
+            <div class='col-md-2'>
+              <input type='text' name='vintage' />
+            </div>
+            <div class='col-md-8'></div>
+          </div>
+          <div class='row'>
+            <div class='col-md-2'>Producer</div>
+            <div class='col-md-2'>
+              <input type='text' name='producer'/>
+            </div>
+            <div class='col-md-8'></div>
+          </div>
+          <div class='row'>
+            <div class='col-md-2'>Name</div>
+            <div class='col-md-2'>
+              <input type='text' name='name'/>
+            </div>
+            <div class='col-md-8'></div>
+          </div>
+          <div class='row'>
+            <div class='col-md-2'></div>
+            <div class='col-md-4'>
+              <button type="button" class="btn btn-default">Enroll</button>
+            </div>
+            <div class='col-md-6'></div>
+          </div>
+          
+
+
+        </div>
+      </div>
+
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
+{% endautoescape %}
