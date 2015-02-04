@@ -3,6 +3,7 @@ import os
 import urllib
 import logging
 import datetime
+import json
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -56,13 +57,17 @@ class EnrollBottle(webapp2.RequestHandler):
     enclosure_signature = sk2.sign(enclosure_code)
     assert vk2.verify(enclosure_signature, enclosure_code)
     
-    bottle_label = ( base58.b58encode( bottle_code ),  base58.b58encode( enclosure_signature ))
-    label = ( base58.b58encode( vk1.to_string() ), base58.b58encode( vk2.to_string()) )
-    enclosure_label = ( base58.b58encode( bottle_signature ), base58.b58encode( enclosure_code) )
+    bottle_tuple = {'bottle_code' : base58.b58encode( bottle_code ), 'enclosure_signature' : base58.b58encode( enclosure_signature )}
+    label_tuple = { 'bottle_key' : base58.b58encode( vk1.to_string() ), 'enclosure_key' : base58.b58encode( vk2.to_string()) }
+    enclosure_tuple = { 'bottle_signature' : base58.b58encode( bottle_signature ), 'enclosure_code' : base58.b58encode( enclosure_code) }
     
-    logging.info('bottle label: {0}'.format(bottle_label))
-    logging.info('label: {0}'.format(label))
-    logging.info('enclosure label: {0}'.format(enclosure_label))
+    logging.info('bottle code: {0}'.format(bottle_tuple))
+    logging.info('label code: {0}'.format(label_tuple))
+    logging.info('enclosure code: {0}'.format(enclosure_tuple))
+    
+    response_json = {'bottle_tuple':bottle_tuple, 'label_tuple':label_tuple, 'enclosure_tuple':enclosure_tuple}
+    
+    self.response.write( json.dumps(response_json) )
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),

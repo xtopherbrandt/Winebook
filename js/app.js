@@ -15,7 +15,17 @@ var main = function ()
         },
         success: function( data ) 
         {
-          $( "#weather-temp" ).html( "<strong>" + data + "</strong> degrees" );
+          var identity = JSON.parse(data);
+          var bottle_tuple = identity.bottle_tuple;
+          $('.bottle-codes').show();
+          $('<li>').text(bottle_tuple.bottle_code).appendTo('.bottle-components' );
+          $('<li>').text(bottle_tuple.enclosure_signature).appendTo('.bottle-components' );
+          $('.label-codes').show();
+          $('<li>').text(bottle_tuple.bottle_code).appendTo('.label-components' );
+          $('<li>').text(bottle_tuple.enclosure_signature).appendTo('.label-components' );
+          $('.enclosure-codes').show();
+          $('<li>').text(bottle_tuple.bottle_code).appendTo('.enclosure-components' );
+          $('<li>').text(bottle_tuple.enclosure_signature).appendTo('.enclosure-components' );
         }
       });
     });
