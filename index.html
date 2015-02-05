@@ -42,8 +42,8 @@
         {%endif%}
       </div>
     </div>
-    <H1>Enroll Bottle</H1>
       <div class='container'>
+        <H1>Enroll Bottle</H1>
         <div class='bottle-form'>
           <H2>Bottle Details</H2>
           <div class='row'>
@@ -80,40 +80,52 @@
         <H1>Bottle Identity</H1>
         <div class='bottle-identity'>
           <div class='row'>
-            <div class='col-md-2'><p class='title'>bottle code</p></div>
-            <div class='col-md-4 bottle-code'>
+            <div class='col-md-2'><span class="label label-default title">bottle code</span></div>
+            <div class='col-md-8'>
+              <div class='well well-sm bottle-code'>
+              </div>
             </div>
-            <div class='col-md-6'></div>
+            <div class='col-md-2'></div>
           </div>
           <div class='row'>
-            <div class='col-md-2'><p class='title'>enclosure signature</p></div>
-            <div class='col-md-4 enclosure-signature'>
+            <div class='col-md-2'><span class="label label-default title">enclosure signature</span></div>
+            <div class='col-md-8'>
+              <div class='well well-sm enclosure-signature'>
+              </div>
             </div>
-            <div class='col-md-6'></div>
+            <div class='col-md-2'></div>
           </div>
           <div class='row'>
-            <div class='col-md-2'><p class='title'>bottle verification key</p></div>
-            <div class='col-md-4 bottle-verification-key'>
+            <div class='col-md-2'><span class="label label-default title">bottle verification key</span></div>
+            <div class='col-md-8'>
+              <div class='well well-sm bottle-verification-key'>
+              </div>
             </div>
-            <div class='col-md-6'></div>
+            <div class='col-md-2'></div>
           </div>
           <div class='row'>
-            <div class='col-md-2'><p class='title'>enclosure verification key</p></div>
-            <div class='col-md-4 enclosure-verification-key'>
+            <div class='col-md-2'><span class="label label-default title">enclosure verification key</span></div>
+            <div class='col-md-8'>
+              <div class='well well-sm enclosure-verification-key'>
+              </div>
             </div>
-            <div class='col-md-6'></div>
+            <div class='col-md-2'></div>
           </div>
           <div class='row'>
-            <div class='col-md-2'><p class='title'>bottle signature</p></div>
-            <div class='col-md-4 bottle-signature'>
+            <div class='col-md-2'><span class="label label-default title">bottle signature</span></div>
+            <div class='col-md-8'>
+              <div class='well well-sm bottle-signature'>
+              </div>
             </div>
-            <div class='col-md-6'></div>
+            <div class='col-md-2'></div>
           </div>
           <div class='row'>
-            <div class='col-md-2'><p class='title'>enclosure code</p></div>
-            <div class='col-md-4 enclosure-code'>
+            <div class='col-md-2'><span class="label label-default title">enclosure code</span></div>
+            <div class='col-md-8'>
+              <div class='well well-sm enclosure-code'>
+              </div>
             </div>
-            <div class='col-md-6'></div>
+            <div class='col-md-2'></div>
           </div>
         </div>
     </div>
@@ -122,37 +134,44 @@
         <div class='identity-verification'>
           <div class='row'>
             <div class='col-md-6'>
-              <input type="text" class="form-control" placeholder="Bottle Code" aria-describedby="sizing-addon1">
+              <input type="text" class="form-control bottle-code" placeholder="Bottle Code" aria-describedby="sizing-addon1">
             </div>
             <div class='col-md-6'></div>
           </div>
           <div class='row'>
             <div class='col-md-6'>
-              <input type="text" class="form-control" placeholder="Enclosure Signature" aria-describedby="sizing-addon1">
+              <input type="text" class="form-control enclosure-signature" placeholder="Enclosure Signature" aria-describedby="sizing-addon1">
             </div>
             <div class='col-md-6'></div>
           </div>
           <div class='row'>
             <div class='col-md-6'>
-              <input type="text" class="form-control" placeholder="Bottle Verification Key" aria-describedby="sizing-addon1">
+              <input type="text" class="form-control bottle-verification-key" placeholder="Bottle Verification Key" aria-describedby="sizing-addon1">
             </div>
             <div class='col-md-6'></div>
           </div>
           <div class='row'>
             <div class='col-md-6'>
-              <input type="text" class="form-control" placeholder="Enclosure Verification Key" aria-describedby="sizing-addon1">
+              <input type="text" class="form-control enclosure-verification-key" placeholder="Enclosure Verification Key" aria-describedby="sizing-addon1">
             </div>
             <div class='col-md-6'></div>
           </div>
           <div class='row'>
             <div class='col-md-6'>
-              <input type="text" class="form-control" placeholder="Bottle Signature" aria-describedby="sizing-addon1">
+              <input type="text" class="form-control bottle-signature" placeholder="Bottle Signature" aria-describedby="sizing-addon1">
             </div>
             <div class='col-md-6'></div>
           </div>
           <div class='row'>
             <div class='col-md-6'>
-              <input type="text" class="form-control" placeholder="Enclosure Code" aria-describedby="sizing-addon1">
+              <input type="text" class="form-control enclosure-code" placeholder="Enclosure Code" aria-describedby="sizing-addon1">
+            </div>
+            <div class='col-md-6'></div>
+          </div>
+          <div class='row'>
+            <div class='col-md-2'></div>
+            <div class='col-md-4'>
+              <button type="button" class="btn btn-default" id='validate-btn'>Validate Identity</button>
             </div>
             <div class='col-md-6'></div>
           </div>
