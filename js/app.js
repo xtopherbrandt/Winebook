@@ -17,15 +17,14 @@ var main = function ()
         {
           var identity = JSON.parse(data);
           var bottle_tuple = identity.bottle_tuple;
-          $('.bottle-codes').show();
-          $('<li>').text(bottle_tuple.bottle_code).appendTo('.bottle-components' );
-          $('<li>').text(bottle_tuple.enclosure_signature).appendTo('.bottle-components' );
-          $('.label-codes').show();
-          $('<li>').text(bottle_tuple.bottle_code).appendTo('.label-components' );
-          $('<li>').text(bottle_tuple.enclosure_signature).appendTo('.label-components' );
-          $('.enclosure-codes').show();
-          $('<li>').text(bottle_tuple.bottle_code).appendTo('.enclosure-components' );
-          $('<li>').text(bottle_tuple.enclosure_signature).appendTo('.enclosure-components' );
+          var label_tuple = identity.label_tuple;
+          var enclosure_tuple = identity.enclosure_tuple;
+          $('<p>').text(bottle_tuple.bottle_code).addClass('code').appendTo('.bottle-code');
+          $('<p>').text(bottle_tuple.enclosure_signature).addClass('code').appendTo('.enclosure-signature');
+          $('<p>').text(label_tuple.bottle_key).addClass('code').appendTo('.bottle-verification-key');
+          $('<p>').text(label_tuple.enclosure_key).addClass('code').appendTo('.enclosure-verification-key');
+          $('<p>').text(enclosure_tuple.bottle_signature).addClass('code').appendTo('.bottle-signature');
+          $('<p>').text(enclosure_tuple.enclosure_code).addClass('code').appendTo('.enclosure-code');
         }
       });
     });

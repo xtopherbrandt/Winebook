@@ -39,7 +39,7 @@ class EnrollBottle(webapp2.RequestHandler):
     
     logging.info( bottle_name )
     
-    bottle_code = PRNG(bottle_name)(256)
+    bottle_code = PRNG(datetime.datetime.now().microsecond)(128)
     
     rng1 = PRNG(datetime.datetime.now().microsecond)
     sk1 = SigningKey.generate(entropy=rng1)
@@ -48,7 +48,7 @@ class EnrollBottle(webapp2.RequestHandler):
     bottle_signature = sk1.sign(bottle_code)
     assert vk1.verify(bottle_signature, bottle_code)
 
-    enclosure_code = PRNG(bottle_name)(256)
+    enclosure_code = PRNG(datetime.datetime.now().microsecond)(128)
     rng2 = PRNG(datetime.datetime.now().microsecond)
 
     sk2 = SigningKey.generate(entropy=rng2)
