@@ -10,6 +10,7 @@ from google.appengine.ext import ndb
 from google.appengine.api import urlfetch
 from google.appengine.api import taskqueue
 from ecdsa.ecdsa import SigningKey
+from ecdsa.ecdsa import *
 from ecdsa.ecdsa.util import PRNG
 from base58 import base58
 
@@ -20,6 +21,21 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
+
+#convert string to hex
+def toHex(s):
+    lst = []
+    for ch in s:
+        hv = hex(ord(ch)).replace('0x', '')
+        if len(hv) == 1:
+            hv = '0'+hv
+        lst.append(hv)
+    
+    return reduce(lambda x,y:x+y, lst)
+
+#convert hex repr to string
+def toStr(s):
+    return s and chr(atoi(s[:2], base=16)) + toStr(s[2:]) or ''
 
 class MainPage(webapp2.RequestHandler):
 
@@ -47,7 +63,7 @@ class EnrollBottle(webapp2.RequestHandler):
     
     bottle_signature = sk1.sign(bottle_code)
     assert vk1.verify(bottle_signature, bottle_code)
-
+    
     enclosure_code = PRNG(datetime.datetime.now().microsecond)(128)
     rng2 = PRNG(datetime.datetime.now().microsecond)
 
@@ -58,12 +74,16 @@ class EnrollBottle(webapp2.RequestHandler):
     assert vk2.verify(enclosure_signature, enclosure_code)
     
     bottle_tuple = {'bottle_code' : base58.b58encode( bottle_code ), 'enclosure_signature' : base58.b58encode( enclosure_signature )}
-    label_tuple = { 'bottle_key' : base58.b58encode( vk1.to_string() ), 'enclosure_key' : base58.b58encode( vk2.to_string()) }
+    label_tuple = { 'bottle_key' : { 'x' : vk1.pubkey.point.x(), 'y' : vk1.pubkey.point.y() }, 'enclosure_key' : base58.b58encode( vk2.to_string()) }
     enclosure_tuple = { 'bottle_signature' : base58.b58encode( bottle_signature ), 'enclosure_code' : base58.b58encode( enclosure_code) }
     
     logging.info('bottle code: {0}'.format(bottle_tuple))
     logging.info('label code: {0}'.format(label_tuple))
     logging.info('enclosure code: {0}'.format(enclosure_tuple))
+
+    logging.info( vk1.pubkey.curve )
+    logging.info ( vk1.pubkey.point.x() )
+    logging.info ( vk1.pubkey.point.y() )
     
     response_json = {'bottle_tuple':bottle_tuple, 'label_tuple':label_tuple, 'enclosure_tuple':enclosure_tuple}
     

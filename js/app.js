@@ -32,6 +32,20 @@ var main = function ()
           $('.identity-verification .enclosure-verification-key').val(label_tuple.enclosure_key);
           $('.identity-verification .bottle-signature').val(enclosure_tuple.bottle_signature);
           $('.identity-verification .enclosure-code').val(enclosure_tuple.enclosure_code);
+                    
+          // Calculate fingerprint in browser
+          var fingerprint = sjcl.codec.hex.fromBits(
+            sjcl.hash.sha256.hash(
+              bottle_tuple.bottle_code + enclosure_tuple.enclosure_code));
+          
+          $('.bottle-identity .fingerprint').text(fingerprint);
+          
+          // Validate Identity in browser
+          var curve = sjcl.ecc.curves.c192;
+          var public_key_point = new sjcl.ecc.point( curve, label_tuple.bottle_key.x, label_tuple.bottle_key.y);
+          var public_key = new sjcl.ecc.ecdsa.publicKey(sjcl.ecc.curves.c192, public_key_point);
+          var enclosure_signature_verified = public_key.verify(decode(bottle_tuple.bottle_code), decode(enclosure_tuple.bottle_signature));
+          console.log(enclosure_signature_verified);
         }
       });
     });
