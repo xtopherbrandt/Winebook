@@ -7,15 +7,19 @@ threadsafe: true
 handlers:
 - url: /stylesheets
   static_dir: stylesheets
+  secure: always
 
 - url: /bootstrap/*
   static_dir: bootstrap
+  secure: always
   
 - url: /js
   static_dir: js
+  secure: always
 
 - url: /.*
   script: winebook.application
+  secure: always
   
 libraries:
 - name: webapp2

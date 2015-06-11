@@ -4,6 +4,7 @@ import urllib
 import logging
 import datetime
 import json
+import binascii
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -11,6 +12,8 @@ from google.appengine.api import urlfetch
 from google.appengine.api import taskqueue
 from ecdsa.ecdsa import SigningKey
 from ecdsa.ecdsa import *
+from ecdsa.ecdsa.curves import NIST384p
+
 from ecdsa.ecdsa.util import PRNG
 from base58 import base58
 
@@ -56,9 +59,9 @@ class EnrollBottle(webapp2.RequestHandler):
     logging.info( bottle_name )
     
     bottle_code = PRNG(datetime.datetime.now().microsecond)(128)
-    
+
     rng1 = PRNG(datetime.datetime.now().microsecond)
-    sk1 = SigningKey.generate(entropy=rng1)
+    sk1 = SigningKey.generate(curve=NIST384p, entropy=rng1)
     vk1 = sk1.get_verifying_key()
     
     bottle_signature = sk1.sign(bottle_code)
@@ -67,7 +70,7 @@ class EnrollBottle(webapp2.RequestHandler):
     enclosure_code = PRNG(datetime.datetime.now().microsecond)(128)
     rng2 = PRNG(datetime.datetime.now().microsecond)
 
-    sk2 = SigningKey.generate(entropy=rng2)
+    sk2 = SigningKey.generate(curve=NIST384p, entropy=rng2)
     vk2 = sk2.get_verifying_key()
     
     enclosure_signature = sk2.sign(enclosure_code)
@@ -78,6 +81,8 @@ class EnrollBottle(webapp2.RequestHandler):
     enclosure_tuple = { 'bottle_signature' : base58.b58encode( bottle_signature ), 'enclosure_code' : base58.b58encode( enclosure_code) }
     
     logging.info('bottle code: {0}'.format(bottle_tuple))
+    logging.info (binascii.hexlify(bottle_code))
+    
     logging.info('label code: {0}'.format(label_tuple))
     logging.info('enclosure code: {0}'.format(enclosure_tuple))
 

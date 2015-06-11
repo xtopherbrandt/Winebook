@@ -79,6 +79,10 @@ function decode(string) {
 
   return bytes.reverse()
 }
+
+function decodeToUint8Array(string) {
+  return new Uint8Array(decode(string))
+}
 /*
 module.exports = {
   encode: encode,

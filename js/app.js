@@ -34,18 +34,23 @@ var main = function ()
           $('.identity-verification .enclosure-code').val(enclosure_tuple.enclosure_code);
                     
           // Calculate fingerprint in browser
-          var fingerprint = sjcl.codec.hex.fromBits(
-            sjcl.hash.sha256.hash(
-              bottle_tuple.bottle_code + enclosure_tuple.enclosure_code));
+          var fingerprintPromise = crypto.subtle.digest({name : "SHA-256"}, decodeToUint8Array(bottle_tuple.bottle_code + enclosure_tuple.enclosure_code)).then(function(result){
+            console.log("Fingerprint: " + result);
+                $('.bottle-identity .fingerprint').text(result);
+            }, function(reason){
+              console.log("Error calculating Fingerprint: " + reason);
+              $('.bottle-identity .fingerprint').text("Error calculating Fingerprint");
+              
+            });
           
-          $('.bottle-identity .fingerprint').text(fingerprint);
+          
           
           // Validate Identity in browser
-          var curve = sjcl.ecc.curves.c192;
-          var public_key_point = new sjcl.ecc.point( curve, label_tuple.bottle_key.x, label_tuple.bottle_key.y);
-          var public_key = new sjcl.ecc.ecdsa.publicKey(sjcl.ecc.curves.c192, public_key_point);
-          var enclosure_signature_verified = public_key.verify(decode(bottle_tuple.bottle_code), decode(enclosure_tuple.bottle_signature));
-          console.log(enclosure_signature_verified);
+          //var curve = sjcl.ecc.curves.c192;
+          //var public_key_point = new sjcl.ecc.point( curve, label_tuple.bottle_key.x, label_tuple.bottle_key.y);
+          //var public_key = new sjcl.ecc.ecdsa.publicKey(sjcl.ecc.curves.c192, public_key_point);
+          //var enclosure_signature_verified = public_key.verify(decode(bottle_tuple.bottle_code), decode(enclosure_tuple.bottle_signature));
+          //console.log(enclosure_signature_verified);
         }
       });
     });
